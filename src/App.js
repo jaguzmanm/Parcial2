@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import SpaceList from "./components/spacesList";
+import localeEsMessages from "./locales/es";
+import localeEnMessages from "./locales/en";
+
+import { IntlProvider, FormattedMessage } from "react-intl";
 
 function App() {
+  const locale = navigator.language;
+  let lang;
+  if (locale.startsWith("es")) {
+    lang = localeEsMessages;
+  } else {
+    lang = localeEnMessages;
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <IntlProvider locale={locale} messages={lang}>
+        <h1>
+          <FormattedMessage id="space" />
+        </h1>
+        <SpaceList />
+      </IntlProvider>
     </div>
   );
 }
